@@ -1,0 +1,36 @@
+{
+  "name": "raiden-graphql",
+  "version": "0.0.1",
+  "description": "A GraphQL gateway to Raiden Network API",
+  "author": {
+    "name": "Ming-der Wang",
+    "email": "mingderwang@gmail.com",
+    "url": "www.log4analytics.com"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "ethereum",
+    "blockchain",
+    "axios",
+    "api",
+    "graphql",
+    "raiden"
+  ],
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.4.8",
+    "axios": "^0.18.0",
+    "es6-promise": "^4.2.6",
+    "express": "^4.16.4",
+    "graphql": "^14.2.1",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "node": "^11.14.0",
+    "nodemon": "^1.18.11"
+  }
+}
