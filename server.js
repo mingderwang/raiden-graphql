@@ -2,21 +2,8 @@ const express = require('express');
 const { createServer } = require('http');
 const { ApolloServer, gql } = require('apollo-server-express');
 
-//const typeDefs = require('./schema');
-//#const resolvers = require('./resolver');
-
-const typeDefs = gql`
-  type Query {
-    "A simple type for getting started!"
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'world'
-  }
-};
+const typeDefs = require('./schema');
+const resolvers = require('./resolver');
 
 const PORT = 4000;
 
