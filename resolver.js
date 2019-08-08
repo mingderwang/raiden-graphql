@@ -1,9 +1,13 @@
 Address = require('./address')
+Tokens = require('./tokens')
 
 const resolvers = {
   Query: {
-    address: (root, { address }) => {
-      return new Address(address).create()
+    address: (root, {}) => {
+      return new Address().create()
+    },
+    tokens: (root, {}) => {
+      return new Tokens().create()
     }
   }
 }

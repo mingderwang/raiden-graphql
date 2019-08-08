@@ -1,7 +1,9 @@
 const typeDefs = `
     type Query {
       address: Address
+      tokens: [String]!
     }
+
     type Address {
       our_address: String!
     }
