@@ -1,11 +1,12 @@
 const typeDefs = `
     type Query {
-      "A simple type for getting started!"
-      hello: String
+      address: Address
+    }
+    type Address {
+      our_address: String!
     }
 
     type Channel {
-      id: String!
       total_deposit: Int!
       state: String!
       partner_address: String!

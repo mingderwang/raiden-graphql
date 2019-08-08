@@ -1,8 +1,10 @@
-//Channels = require('./channels')
+Address = require('./address')
 
 const resolvers = {
   Query: {
-    hello: () => 'world ming'
+    address: (root, { address }) => {
+      return new Address(address).create()
+    }
   }
 }
 
