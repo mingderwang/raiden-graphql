@@ -1,26 +1,50 @@
 const instance = require('./axiosInstance')
+
 class Channels {
-  constructor () {
+  constructor (token_address) {
+    this.token_address = token_address
   }
   async create () {
-    var result = await getChannel()
+    var result = await getChannel(this.token_address)
     return result
   }
 }
 
-async function getChannel() {
-  result = {
-    id: "0"
+async function getChannel(token_address) {
+  if (token_address === undefined) {
+    url = '/channels' 
+  } else {
+    url = '/channels/'+token_address
   }
+  result = {
+    channels: [],
+    errors: []
+  } 
   try {
-    await instance.get('address').then(response => {
+    await instance.get(url)
+    .then(response => {
       console.log(response.data)
       result = {
-        id: "1" 
-      } 
+                 channels: 
+                   response.data
+               }
     })
-  } catch (err) {
-    console.error(err)
+    .catch((err) => {
+     console.error(err.response.data)
+              if ((typeof err.response.data.errors) === 'string') {
+                result = {
+                  errors: [
+                            err.response.data.errors
+                          ]
+                }
+              } else {
+              result = {
+                  errors: err.response.data.errors
+                }
+              }
+             })
+   } catch (err) {
+    console.error(err.response.data)
   }
   return result
 }

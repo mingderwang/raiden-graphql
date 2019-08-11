@@ -1,6 +1,7 @@
 Address = require('./address')
 Tokens = require('./tokens')
 Token = require('./token')
+Channels = require('./channels')
 
 const resolvers = {
   Query: {
@@ -10,11 +11,14 @@ const resolvers = {
     tokens: (root, {}) => {
       return new Tokens().create()
     },
+    channels: (root, {token_address}) => {
+      return new Channels(token_address).create()
+    },
   },
   Mutation: {
     token: (root, { address }) => {
       return new Token(address).create()
-    }
+    },
   },
 }
 

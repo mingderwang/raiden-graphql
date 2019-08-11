@@ -2,7 +2,11 @@ const typeDefs = `
     type Query {
       address: Address
       tokens: [String]!
-      channels: [Channel]!
+      channels(token_address: String): ChannelWithErrors
+    }
+
+    type Mutation {
+      token(address: String): Token
     }
 
     type Token {
@@ -14,13 +18,14 @@ const typeDefs = `
       our_address: String!
     }
 
-    type Mutation {
-      token(address: String): Token
+    type ChannelWithErrors {
+      errors: [String]
+      channels: [Channel]
     }
 
     type Channel {
       token_network_identifier: String!
-      total_deposit: Int!
+      total_deposit: Int
       state: String!
       partner_address: String!
       token_address: String!
