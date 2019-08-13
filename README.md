@@ -226,7 +226,7 @@ return:
 mutation {
   channel_deposit(
     token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
-    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
     total_deposit: 300000
   ) {
     channels {
@@ -265,16 +265,14 @@ errors: null
 ## PUT create (open) a channel 
 ```
 mutation {
-  channel (
-    {
-      "partner_address": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-      "settle_timeout": 500,
-      "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
-      "total_deposit": 1337
-    }
+  channels(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    settle_timeout: 500
+    total_deposit: 1337
   ) {
     errors
-  } 
+  }
 }
 ```
 ## PATCH close a channel 
@@ -329,7 +327,7 @@ with "total_withdraw": 100
 mutation {
   channel_withdraw(
     token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
-    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
     total_withdraw: 300
   ) {
     channels {
@@ -365,7 +363,7 @@ return in 0.100.3 (not implemented yet)
       channel_identifier
       payment_identifier
       token_address
-      token_network_address
+      token_network_identifier
       initiator
       channel_identifier
       target
@@ -383,6 +381,51 @@ return:
   "data": {
     "pending_transfers": {
       "transfers": [],
+      "errors": null
+    }
+  }
+}
+```
+or with data
+```
+{
+  "data": {
+    "pending_transfers": {
+      "transfers": [
+        {
+          "channel_identifier": "6",
+          "payment_identifier": "14164638209489862054",
+          "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
+          "token_network_identifier": "0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355",
+          "initiator": "0xd2C73673E8C0a13400c7136495dA6fab31618902",
+          "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+          "locked_amount": "300",
+          "role": "initiator",
+          "transferred_amount": "0"
+        },
+        {
+          "channel_identifier": "6",
+          "payment_identifier": "15669887581632066647",
+          "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
+          "token_network_identifier": "0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355",
+          "initiator": "0xd2C73673E8C0a13400c7136495dA6fab31618902",
+          "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+          "locked_amount": "600",
+          "role": "initiator",
+          "transferred_amount": "0"
+        },
+        {
+          "channel_identifier": "6",
+          "payment_identifier": "1829131590973794013",
+          "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
+          "token_network_identifier": "0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355",
+          "initiator": "0xd2C73673E8C0a13400c7136495dA6fab31618902",
+          "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+          "locked_amount": "1000",
+          "role": "initiator",
+          "transferred_amount": "0"
+        }
+      ],
       "errors": null
     }
   }
@@ -490,6 +533,19 @@ mutations {
   }
 }
 
+```
+or with error
+```
+{
+  "data": {
+    "channel_payment": {
+      "channels": null,
+      "errors": [
+        "Payment couldn't be completed (insufficient funds, no route to target or target offline)."
+      ]
+    }
+  }
+}
 ```
 ```
 curl -vvv -i -X POST http://localhost:5001/api/v1/payments/0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee/0x9013a333d3de90a7eF7531746cb8F537632bf96c  -H 'Content-Type: application/json' -d '{"amount": 0, "identifier": 34}'
