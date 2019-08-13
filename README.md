@@ -697,3 +697,6 @@ or with another error:
 ```
 {"errors": "Amount negative"}
 ```
+
+# TODO
+* implement Subscription for payments events
