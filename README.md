@@ -221,8 +221,6 @@ return:
   }
 }
 ```
-TODO
-
 ## PATCH deposit a channel
 ```
 mutation {
@@ -355,11 +353,48 @@ return in 0.100.3 (not implemented yet)
    'Nothing to do. Should either provide \'total_deposit\' or \'state\' argument' }
 ```
 
+
+## pending_transfers
+```
+{
+  pending_transfers(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+  ) {
+    transfers {
+      channel_identifier
+      payment_identifier
+      token_address
+      token_network_address
+      initiator
+      channel_identifier
+      target
+      locked_amount
+      role
+      transferred_amount
+    }
+    errors
+  }
+}
+```
+return:
+```
+{
+  "data": {
+    "pending_transfers": {
+      "transfers": [],
+      "errors": null
+    }
+  }
+}
+```
+
+
+TODO
 ## connect channel 
 ```
 
 ```
-
 
 # connections
 ## list connections

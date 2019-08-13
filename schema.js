@@ -2,14 +2,15 @@ const typeDefs = `
     type Query {
       address: Address
       tokens: [String]!
-      channels(token_address: String): ChannelWithErrors
+      channels(token_address: String): ChannelOrErrors
+      pending_transfers(token_address: String, partner_address: String): TransferOrErrors
     }
 
     type Mutation {
       token(address: String): Token
-      channel_deposit(token_address: String, partner_address: String, total_deposit: Int): ChannelWithErrors
-      channel_close(token_address: String, partner_address: String): ChannelWithErrors
-      channel_withdraw(token_address: String, partner_address: String, total_withdraw: Int): ChannelWithErrors
+      channel_deposit(token_address: String, partner_address: String, total_deposit: Int): ChannelOrErrors
+      channel_close(token_address: String, partner_address: String): ChannelOrErrors
+      channel_withdraw(token_address: String, partner_address: String, total_withdraw: Int): ChannelOrErrors
     }
 
     type Token {
@@ -21,9 +22,26 @@ const typeDefs = `
       our_address: String!
     }
 
-    type ChannelWithErrors {
+    type ChannelOrErrors {
       errors: [String]
       channels: [Channel]
+    }
+
+    type TransferOrErrors {
+      errors: [String]
+      transfers: [Transfer]
+    }
+
+    type Transfer {
+      token_network_address: String!
+      token_address: String!
+      channel_identifier: String!
+      initiator: String!
+      locked_amount: String!
+      payment_identifier: String!
+      role: String!
+      target: String!
+      transferred_amount: String! 
     }
 
     type Channel {

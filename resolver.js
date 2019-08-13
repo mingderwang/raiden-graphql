@@ -2,6 +2,7 @@ Address = require('./address')
 Tokens = require('./tokens')
 Token = require('./token')
 Channels = require('./channels')
+PendingTransfers = require('./pending_transfers')
 ChannelDeposit = require('./channel_deposit')
 ChannelClose = require('./channel_close')
 ChannelWithdraw = require('./channel_withdraw')
@@ -16,6 +17,9 @@ const resolvers = {
     },
     channels: (root, {token_address}) => {
       return new Channels(token_address).create()
+    },
+    pending_transfers: (root, { token_address, partner_address}) => {
+      return new PendingTransfers(token_address, partner_address).create()
     },
   },
   Mutation: {
