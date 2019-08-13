@@ -225,31 +225,44 @@ TODO
 
 ## PATCH deposit a channel
 ```
-curl -X PATCH http://localhost:5001/api/v1/channels/0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee/0x9013a333d3de90a7eF7531746cb8F537632bf96c -H 'Content-Type: application/json' -d '{"total_deposit": 7331}'
-```
-```
 mutation {
-  channel_deposit (
-    "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
-    "taget_address": 
-    "total_deposit": 7331
+  channel_deposit(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    total_deposit: 300000
   ) {
-      amount
-      block_number
-      event
-      identifier
-      target
+    channels {
+      state
+      balance
+      settle_timeout
+      token_network_identifier
+      total_deposit
+      token_address
+      channel_identifier
+      partner_address
+      reveal_timeout
+    }
+    errors
   }
 }
+```
 return:
 ```
 {
-    "amount": 682,
-    "block_number": 3663408,
-    "event": "EventPaymentSentSuccess",
-    "identifier": 1531927405484,
-    "target": "0x25511699C252eeA2678266857C98F459Df97B77c"
+channels: [
+{ state: 'opened',
+  balance: 10000,
+  settle_timeout: 500,
+  token_network_identifier: '0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355',
+  total_deposit: 300000,
+  token_address: '0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee',
+  channel_identifier: 5,
+  partner_address: '0x9013a333d3de90a7eF7531746cb8F537632bf96c',
+  reveal_timeout: 50 }
+]
+errors: null
 }
+```
 ```
 ## PUT create (open) a channel 
 ```
@@ -268,26 +281,80 @@ mutation {
 ```
 ## PATCH close a channel 
 This request is used to close a channel or to increase the deposit in it.
+with "state": "closed"
 ```
 mutation {
-  channels (
-    {
-      "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
-      "partner_address": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-    } 
+  channel_close(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
   ) {
+    channels {
+      state
+    }
     errors
   }
 }
 ```
 return:
 ```
-{ "errors": {"state": ["Not a valid choice."]}}
+{
+  "data": {
+    "channel_close": {
+      "channels": [
+        {
+          "state": "closed"
+        }
+      ],
+      "errors": null
+    }
+  }
+}
 ```
-// or 
+or with error
 ```
-{ "errors": "Can't set total deposit on a closed channel"}
+{
+  "data": {
+    "channel_close": {
+      "channels": null,
+      "errors": [
+        "Attempted to close an already closed channel"
+      ]
+    }
+  }
+}
 ```
+
+## PATCH withdraw a channel 
+This request is used to close a channel or to increase the deposit in it.
+with "total_withdraw": 100 
+```
+mutation {
+  channel_withdraw(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    total_withdraw: 300
+  ) {
+    channels {
+      state
+      balance
+      settle_timeout
+      token_network_identifier
+      total_deposit
+      token_address
+      channel_identifier
+      partner_address
+      reveal_timeout
+    }
+    errors
+  }
+}
+```
+return in 0.100.3 (not implemented yet)
+```
+{ errors:
+   'Nothing to do. Should either provide \'total_deposit\' or \'state\' argument' }
+```
+
 ## connect channel 
 ```
 

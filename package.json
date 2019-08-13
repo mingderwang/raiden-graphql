@@ -1,6 +1,6 @@
 {
   "name": "raiden-graphql",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A GraphQL gateway to Raiden Network API",
   "author": {
     "name": "Ming-der Wang",

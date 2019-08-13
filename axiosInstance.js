@@ -3,7 +3,7 @@
 */
 const axios = require('axios')
 
-const BASE_URL = "https://3fb74b5f.ngrok.io"
+const BASE_URL = "https://0225de36.ngrok.io"
 const instance = axios.create({
   baseURL: BASE_URL+'/api/v1/'
 })
