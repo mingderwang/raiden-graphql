@@ -4,6 +4,7 @@ const typeDefs = `
       tokens: [String]!
       channels(token_address: String): ChannelOrErrors
       pending_transfers(token_address: String, partner_address: String): TransferOrErrors
+      connections: [Connection]!
     }
 
     type Mutation {
@@ -12,7 +13,9 @@ const typeDefs = `
       channel_deposit(token_address: String, partner_address: String, total_deposit: Int): ChannelOrErrors
       channel_close(token_address: String, partner_address: String): ChannelOrErrors
       channel_withdraw(token_address: String, partner_address: String, total_withdraw: Int): ChannelOrErrors
-      channel_payment(token_address: String, target_address: String, amount: Int): ChannelOrErrors
+      payment(token_address: String, target_address: String, amount: Int): ChannelOrErrors
+      connection(token_address: String, funds: Int): ChannelOrErrors
+      leave_connection(token_address: String): [String]!
     }
 
     type Token {
@@ -74,9 +77,13 @@ const typeDefs = `
       log_time: String!
     }
 
-    type Subscription {
-        latestBlock: String
+    type Connection {
+      token_address: String
+      funds: Int
+      sum_deposits: Int
+      channels: Int
     }
+
 `
 
 module.exports = typeDefs

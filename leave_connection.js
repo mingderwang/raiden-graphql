@@ -1,34 +1,35 @@
 const instance = require('./axiosInstance')
 
-class ChannelPayment {
-  constructor (token_address, target_address, amount) {
+class LeaveConnection {
+  constructor (token_address) {
     this.token_address = token_address
-    this.target_address = target_address
-    this.amount = amount
   }
   async create () {
-    var result = await payment(this.token_address, this.target_address, this.amount)
+    var result = await leaveConnect(this.token_address)
     return result
   }
 }
 
-async function payment(token_address, target_address, amount) {
-  url = '/payments/'+token_address+'/'+target_address
-  data = {
-    "amount": amount
-  }
+async function leaveConnect(token_address) {
+  url = '/connections/'+token_address
   result = {
     channels: [],
     errors: []
   } 
   try {
-    await instance.post(url, data, { headers: { 'Content-Type': 'application/json' }})
+    await instance.delete(url)
     .then(response => {
-      console.log(response.data)
+      console.log(response)
+      if (response.data === '') {
+      result = {
+                 errors: ['204 NO CONTENT']
+               }
+      } else {
       result = {
                  channels: 
                    [ response.data ]
                }
+      }
     })
     .catch((err) => {
      console.error(err.response.data)
@@ -50,4 +51,4 @@ async function payment(token_address, target_address, amount) {
   return result
 }
 
-module.exports = ChannelPayment
+module.exports = LeaveConnection

@@ -7,7 +7,10 @@ PendingTransfers = require('./pending_transfers')
 ChannelDeposit = require('./channel_deposit')
 ChannelClose = require('./channel_close')
 ChannelWithdraw = require('./channel_withdraw')
-ChannelPayment = require('./channel_payment')
+Payment = require('./payment')
+Connection = require('./connection')
+LeaveConnection = require('./leave_connection')
+Connections = require('./connections')
 
 const resolvers = {
   Query: {
@@ -22,6 +25,9 @@ const resolvers = {
     },
     pending_transfers: (root, { token_address, partner_address}) => {
       return new PendingTransfers(token_address, partner_address).create()
+    },
+    connections: (root, {}) => {
+      return new Connections().create()
     },
   },
   Mutation: {
@@ -40,8 +46,14 @@ const resolvers = {
     channel_withdraw: (root, { token_address, partner_address, total_withdraw }) => {
       return new ChannelWithdraw(token_address, partner_address, total_withdraw).create()
     },
-    channel_payment: (root, { token_address, target_address, amount }) => {
-      return new ChannelPayment(token_address, target_address, amount).create()
+    payment: (root, { token_address, target_address, amount }) => {
+      return new Payment(token_address, target_address, amount).create()
+    },
+    connection: (root, { token_address, funds }) => {
+      return new Connection(token_address, funds).create()
+    },
+    leave_connection: (root, { token_address }) => {
+      return new LeaveConnection(token_address).create()
     },
   },
 }

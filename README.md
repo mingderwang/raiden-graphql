@@ -275,6 +275,19 @@ mutation {
   }
 }
 ```
+with error
+```
+{
+  "data": {
+    "channel": {
+      "channels": null,
+      "errors": [
+        "Channel with given partner address already exists"
+      ]
+    }
+  }
+}
+```
 ## PATCH close a channel 
 This request is used to close a channel or to increase the deposit in it.
 with "state": "closed"
@@ -441,11 +454,61 @@ TODO
 
 # connections
 ## list connections
+```
+{
+  connections {
+    token_address
+    funds
+    sum_deposits
+    channels
+  }
+}
+```
+return:
+```
+{
+  "data": {
+    "connections": [
+      {
+        "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
+        "funds": 3000,
+        "sum_deposits": 1200,
+        "channels": 2
+      }
+    ]
+  }
+}
+```
+or with no any connection
+```
+{
+  "data": {
+    "connections": []
+  }
+}
+```
 ## create connection with funds
 ```
-curl -i -X PUT http://localhost:5001/api/v1/connections/0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee -H 'Content-Type: application/json' -d '{"funds": 4000}'
+mutation {
+  connection (token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+  funds: 999999) {
+    errors
+  }
+}
 ```
-// or
+return:
+```
+{
+  "data": {
+    "connection": {
+      "errors": [
+        "204 NO CONTENT"
+      ]
+    }
+  }
+}
+
+```
 ```
 curl http://localhost:5001/api/v1/connections
 {"0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee": {"funds": 4000, "sum_deposits": 337, "channels": 1}}
