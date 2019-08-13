@@ -8,6 +8,7 @@ ChannelDeposit = require('./channel_deposit')
 ChannelClose = require('./channel_close')
 ChannelWithdraw = require('./channel_withdraw')
 Payment = require('./payment')
+Payments = require('./payments')
 Connection = require('./connection')
 LeaveConnection = require('./leave_connection')
 Connections = require('./connections')
@@ -28,6 +29,9 @@ const resolvers = {
     },
     connections: (root, {}) => {
       return new Connections().create()
+    },
+    payments: (root, { token_address, target_address}) => {
+      return new Payments(token_address, target_address).create()
     },
   },
   Mutation: {

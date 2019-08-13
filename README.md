@@ -265,7 +265,7 @@ errors: null
 ## PUT create (open) a channel 
 ```
 mutation {
-  channels(
+  channel(
     token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
     partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
     settle_timeout: 500
@@ -509,99 +509,182 @@ return:
 }
 
 ```
-```
-curl http://localhost:5001/api/v1/connections
-{"0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee": {"funds": 4000, "sum_deposits": 337, "channels": 1}}
-```
-error:
-```
-{"errors": "Insufficient balance for token db26e84f"}
-```
-// or
-```
-{"errors": "Amount negative"}
-```
 ## leave connection
 ```
-curl -i -X DELETE http://localhost:5001/api/v1/connections/0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee -H 'Content-Type: application/json'
-``
-
+mutation {
+  leave_connection (token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+  )
+}
+```
+return:
+```
+{
+  "error": "Failed to fetch. Please check your connection"
+}
+```
 ## Payments
 
 ## GET querying payments events
 
 ```
-curl -i http://localhost:5001/api/v1/payments
-```
-// or
-```
-query {
-  payments (
-    token_address: '0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee'
-    target_address: '0x9013a333d3de90a7eF7531746cb8F537632bf96c'
+{
+  payments(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
   ) {
+    target
+    reason
+    log_time
+    event
   }
 }
-
 ```
 return:
 ```
-
-[
-  {
-    "reason": "lock expired",
-    "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-    "event": "EventPaymentSentFailed",
-    "log_time": "2019-08-06T06:31:02.280"
-  },
-  {
-    "reason": "lock expired",
-    "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-    "event": "EventPaymentSentFailed",
-    "log_time": "2019-08-06T07:00:53.490"
-  },
-  {
-    "reason": "there is no route available",
-    "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-    "event": "EventPaymentSentFailed",
-    "log_time": "2019-08-07T06:34:12.641"
-  },
-  {
-    "reason": "lock expired",
-    "target": "0xB0817770896671433fE51707CeA8bEF9de168700",
-    "event": "EventPaymentSentFailed",
-    "log_time": "2019-08-07T06:40:17.189"
+{
+  "data": {
+    "payments": [
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-06T06:31:02.280",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-06T07:00:53.490",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-07T06:34:12.641",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "none of the available routes could be used",
+        "log_time": "2019-08-07T06:50:26.944",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "none of the available routes could be used",
+        "log_time": "2019-08-07T06:51:54.656",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-07T07:10:57.260",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T10:47:59.794",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T11:35:59.023",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T11:38:14.340",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T11:42:07.955",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T11:56:34.858",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T11:58:18.970",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T13:54:04.834",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T14:40:23.528",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T14:44:14.159",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "lock expired",
+        "log_time": "2019-08-13T14:46:35.613",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T16:21:44.234",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T16:22:00.685",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T16:22:09.254",
+        "event": "EventPaymentSentFailed"
+      },
+      {
+        "target": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
+        "reason": "there is no route available",
+        "log_time": "2019-08-13T16:37:17.224",
+        "event": "EventPaymentSentFailed"
+      }
+    ]
   }
-]
+}
 ```
 ## POST payments
 ```
-mutations {
-  payments (
-    token_address: '0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee'
-    target_address: '0x9013a333d3de90a7eF7531746cb8F537632bf96c'
-    amount: 0
-    identifier: 34 // optional 
+mutation {
+  payment(
+    token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee"
+    target_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
+    amount: 100
   ) {
-
-
-    {
-        "event": "EventPaymentReceivedSuccess",
-        "amount": 5,
-        "initiator": "0x82641569b2062B545431cF6D7F0A418582865ba7",
-        "identifier": 1,
-        "log_time": "2018-10-30T07:03:52.193"
-    },
-    
+    errors
   }
 }
-
 ```
 or with error
 ```
 {
   "data": {
-    "channel_payment": {
+    "payment": {
       "channels": null,
       "errors": [
         "Payment couldn't be completed (insufficient funds, no route to target or target offline)."
@@ -610,14 +693,7 @@ or with error
   }
 }
 ```
-```
-curl -vvv -i -X POST http://localhost:5001/api/v1/payments/0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee/0x9013a333d3de90a7eF7531746cb8F537632bf96c  -H 'Content-Type: application/json' -d '{"amount": 0, "identifier": 34}'
-```
-return:
-```
-
-```
-error:
+or with another error:
 ```
 {"errors": "Amount negative"}
 ```

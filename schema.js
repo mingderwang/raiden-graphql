@@ -5,6 +5,7 @@ const typeDefs = `
       channels(token_address: String): ChannelOrErrors
       pending_transfers(token_address: String, partner_address: String): TransferOrErrors
       connections: [Connection]!
+      payments(token_address: String, target_address: String): [Payment]!
     }
 
     type Mutation {
@@ -70,11 +71,10 @@ const typeDefs = `
     }
   
     type Payment {
-      id: String!
-      event: String!
-      amount: Int!
-      initiator: String!
+      target: String!
+      reason: String!
       log_time: String!
+      event: String!
     }
 
     type Connection {
