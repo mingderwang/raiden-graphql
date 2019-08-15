@@ -1,7 +1,15 @@
+# Raiden Network + GraphQL = "🚀🚀🚀🚀🚀🚀🚀🚀"
+For the [Grow Ethereum](https://gitcoin.co/blog/growethereum/?fbclid=IwAR0eiIY_PiJl1i8iz2mfgGb1uvZnlgDignX402uLC7u2VKniMMlnGoggW5Y) hackathon runs from Jul 29, 2019 - Aug 15, 2019 as the 3th round of the [Gitcoin's Ethereum Virtual Hackathon](https://gitcoin.co/hackathon/ethereal-virtual-hackathon/), this project is expecting to provide a new interface for [Raiden Network](https://raiden.network/) other than original design a RESTful API. Raiden network is designed to provide a fast, cheap, scablable tokens transfer for Ethereum, that will be much more useful if we can provide a GraphQL API interface for the mobile apps which came from this work. Please enjoy it.
+
 # build and run
 ```
 yarn
 yarn dev
+```
+or
+```
+npm install
+npm run dev
 ```
 
 # GraphQL command examples
