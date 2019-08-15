@@ -1,3 +1,5 @@
+# Raiden Network GraphQL
+For (Gitcoin's Ethereum Virtual Hackathon](https://gitcoin.co/hackathon/ethereal-virtual-hackathon/)
 # build and run
 ```
 yarn

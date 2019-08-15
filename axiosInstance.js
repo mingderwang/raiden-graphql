@@ -3,7 +3,9 @@
 */
 const axios = require('axios')
 
-const BASE_URL = "https://0cd78a02.ngrok.io"
+// default BASE_URL should be "http:localhost:5001" where localhost is running the raiden node.
+
+const BASE_URL = "https://51213b86.ngrok.io"
 const instance = axios.create({
   baseURL: BASE_URL+'/api/v1/'
 })
