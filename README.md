@@ -12,7 +12,7 @@ npm install
 npm run dev
 ```
 
-## build and run for prod
+## run for prod
 ```
 yarn start
 ```
@@ -20,8 +20,8 @@ or
 ```
 npm run start
 ```
-
-## enviornment setting (all tested on the Ropsten network)
+then, you can use GraphQL UI to explorer your raiden node on 🚀 Server ready at http://localhost:4000/graphql
+## enviornment setting (test only on the Ropsten network with Raiden 0.100.3)
 geth
 ```
 geth --cache=500000 --syncmode=fast --testnet --rpc --rpcapi eth,net,web3,txpool --bootnodes enode://20c9ad97c081d63397d7b685a412227a40e23c8bdc6688c6f37e97cfbc22d2b4d1db1510d8f61e6a8866ad7f0e17c02b14182d37ea7c3c8b9c2683aeb6b733a1@52.169.14.227:30303,enode://6ce05930c72abc632c58e2e4324f7c7ea478cec0ed4fa2528982cf34483094e9cbc9216e7aa349691242576d552a2a56aaeae426c5303ded677ce455ba1acd9d@13.84.180.240:30303 --rpcaddr 0.0.0.0
@@ -36,7 +36,7 @@ const axios = require('axios')
 
 // default BASE_URL should be "http:localhost:5001" where localhost is running the raiden node.
 
-const BASE_URL = "https://0cd78a02.ngrok.io"
+const BASE_URL = "http://localhost:5001"
 const instance = axios.create({
   baseURL: BASE_URL+'/api/v1/'
 })
@@ -730,6 +730,12 @@ or with another error:
 ```
 
 # TODO
+* update for 0.100.5 release
 * implement Subscription for payments events if necessary
 * use docker-compose for a faster deployment of the whole server, which is geth + raiden + graphql
 * write a sample mobile app to use the raiden GraphQL API. 
+* write some tests.
+
+# Contributors
+* issue: https://github.com/mingderwang/raiden-graphql/issues
+* contributors for mobile apps to use Raiden GraphQL API are welcome.
