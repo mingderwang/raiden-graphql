@@ -21,6 +21,7 @@ or
 npm run start
 ```
 then, you can use GraphQL UI to explorer your raiden node on 🚀 Server ready at http://localhost:4000/graphql
+![demo](./raiden-graphql.png)
 ## enviornment setting (test only on the Ropsten network with Raiden 0.100.3)
 geth
 ```
