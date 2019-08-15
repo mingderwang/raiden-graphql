@@ -1,9 +1,47 @@
-# Raiden Network GraphQL
-For (Gitcoin's Ethereum Virtual Hackathon](https://gitcoin.co/hackathon/ethereal-virtual-hackathon/)
-# build and run
+# Raiden Network + GraphQL = "🚀🚀🚀🚀🚀🚀🚀🚀"
+For the [Grow Ethereum](https://gitcoin.co/blog/growethereum/?fbclid=IwAR0eiIY_PiJl1i8iz2mfgGb1uvZnlgDignX402uLC7u2VKniMMlnGoggW5Y) hackathon runs from Jul 29, 2019 - Aug 15, 2019 as the 3th round of the [Gitcoin's Ethereum Virtual Hackathon](https://gitcoin.co/hackathon/ethereal-virtual-hackathon/), this project is expecting to provide a new interface for [Raiden Network](https://raiden.network/) other than original design a RESTful API. Raiden network is designed to provide a fast, cheap, scablable tokens transfer for Ethereum, that will be much more useful if we can provide a GraphQL API interface for the mobile apps which came from this work. Please enjoy it.
+
+## build and run for dev
 ```
 yarn
 yarn dev
+```
+or
+```
+npm install
+npm run dev
+```
+
+## build and run for prod
+```
+yarn start
+```
+or
+```
+npm run start
+```
+
+## enviornment setting (all tested on the Ropsten network)
+geth
+```
+geth --cache=500000 --syncmode=fast --testnet --rpc --rpcapi eth,net,web3,txpool --bootnodes enode://20c9ad97c081d63397d7b685a412227a40e23c8bdc6688c6f37e97cfbc22d2b4d1db1510d8f61e6a8866ad7f0e17c02b14182d37ea7c3c8b9c2683aeb6b733a1@52.169.14.227:30303,enode://6ce05930c72abc632c58e2e4324f7c7ea478cec0ed4fa2528982cf34483094e9cbc9216e7aa349691242576d552a2a56aaeae426c5303ded677ce455ba1acd9d@13.84.180.240:30303 --rpcaddr 0.0.0.0
+```
+raiden node
+```
+./raiden --keystore-path  ~/.ethereum/testnet/keystore --network-id ropsten --eth-rpc-endpoint http://localhost:8545 --environment-type development --password-file /tmp/passwd --accept-disclaimer --address 0xd2C73673E8C0a13400c7136495dA6fab31618902
+```
+To change your BASE_URL in axiosInstance.js, if this code is not run on the same server as the raiden node.
+```
+const axios = require('axios')
+
+// default BASE_URL should be "http:localhost:5001" where localhost is running the raiden node.
+
+const BASE_URL = "https://0cd78a02.ngrok.io"
+const instance = axios.create({
+  baseURL: BASE_URL+'/api/v1/'
+})
+
+module.exports = instance
 ```
 
 # GraphQL command examples
@@ -124,7 +162,7 @@ return:
   }
 }
 ```
-## channels
+# channels
 
 ## GET get channel status
 ```
@@ -223,7 +261,7 @@ return:
   }
 }
 ```
-## PATCH deposit a channel
+## deposit a channel
 ```
 mutation {
   channel_deposit(
@@ -263,8 +301,7 @@ channels: [
 errors: null
 }
 ```
-```
-## PUT create (open) a channel 
+## create (open) a channel 
 ```
 mutation {
   channel(
@@ -290,7 +327,7 @@ with error
   }
 }
 ```
-## PATCH close a channel 
+## close a channel 
 This request is used to close a channel or to increase the deposit in it.
 with "state": "closed"
 ```
@@ -335,7 +372,7 @@ or with error
 }
 ```
 
-## PATCH withdraw a channel 
+## withdraw a channel 
 This request is used to close a channel or to increase the deposit in it.
 with "total_withdraw": 100 
 ```
@@ -365,7 +402,6 @@ return in 0.100.3 (not implemented yet)
 { errors:
    'Nothing to do. Should either provide \'total_deposit\' or \'state\' argument' }
 ```
-
 
 ## pending_transfers
 ```
@@ -447,13 +483,6 @@ or with data
 }
 ```
 
-
-TODO
-## connect channel 
-```
-
-```
-
 # connections
 ## list connections
 ```
@@ -524,9 +553,9 @@ return:
   "error": "Failed to fetch. Please check your connection"
 }
 ```
-## Payments
+# Payments
 
-## GET querying payments events
+## querying payments events
 
 ```
 {
@@ -670,7 +699,7 @@ return:
   }
 }
 ```
-## POST payments
+## issue a payment
 ```
 mutation {
   payment(
@@ -701,4 +730,6 @@ or with another error:
 ```
 
 # TODO
-* implement Subscription for payments events
+* implement Subscription for payments events if necessary
+* use docker-compose for a faster deployment of the whole server, which is geth + raiden + graphql
+* write a sample mobile app to use the raiden GraphQL API. 

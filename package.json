@@ -7,7 +7,6 @@
     "email": "mingderwang@gmail.com",
     "url": "www.log4analytics.com"
   },
-  "main": "index.js",
   "license": "MIT",
   "keywords": [
     "ethereum",
