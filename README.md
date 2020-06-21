@@ -310,6 +310,7 @@ mutation {
     partner_address: "0x9013a333d3de90a7eF7531746cb8F537632bf96c"
     settle_timeout: 500
     total_deposit: 1337
+    reveal_timeout: 50
   ) {
     errors
   }
@@ -323,6 +324,42 @@ with error
       "channels": null,
       "errors": [
         "Channel with given partner address already exists"
+      ]
+    }
+  }
+}
+```
+or error
+```
+{
+  "data": {
+    "channel": {
+      "errors": [
+        "Total deposit did not increase."
+      ]
+    }
+  }
+}
+```
+or not enought balance error
+```
+{
+  "data": {
+    "channel": {
+      "errors": [
+        "Not enough balance to deposit. 0x76b335763f779979D7322dB2B73088b8D6001b75 Available=1035100002 Needed=1650000000"
+      ]
+    }
+  }
+}
+```
+or 
+```
+{
+  "data": {
+    "channel": {
+      "errors": [
+        "Channel is not in an open state."
       ]
     }
   }

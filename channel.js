@@ -2,7 +2,7 @@ const instance = require('./axiosInstance')
 
 class Channel {
 
-  constructor (token_address, partner_address, settle_timeout, total_deposit) {
+  constructor(token_address, partner_address, settle_timeout, total_deposit, reveal_timeout) {
     this.token_address = token_address
     this.partner_address = partner_address
     this.settle_timeout = settle_timeout
@@ -10,18 +10,19 @@ class Channel {
   }
 
   async create () {
-    var result = await createChannel(this.token_address, this.partner_address, this.settle_timeout, this.total_deposit )
+    var result = await createChannel(this.token_address, this.partner_address, this.settle_timeout, this.total_deposit, this.reveal_timeout)
     return result
   }
 }
 
-async function createChannel(token_address, partner_address, settle_timeout, total_deposit) {
+async function createChannel(token_address, partner_address, settle_timeout, total_deposit, reveal_timeout) {
   url = '/channels'
   data = {
     "token_address": token_address,
     "partner_address": partner_address,
     "settle_timeout": settle_timeout,
-    "total_deposit": total_deposit
+    "total_deposit": total_deposit,
+    "reveal_timeout": reveal_timeout
   }
   result = {
   }

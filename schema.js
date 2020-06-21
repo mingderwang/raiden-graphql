@@ -10,7 +10,7 @@ const typeDefs = `
 
     type Mutation {
       token(address: String): Token
-      channel(token_address: String, partner_address: String, settle_timeout: Int, total_deposit: Int): ChannelOrErrors
+      channel(token_address: String, partner_address: String, settle_timeout: Int, total_deposit: Int, reveal_timeout: Int): ChannelOrErrors
       channel_deposit(token_address: String, partner_address: String, total_deposit: Int): ChannelOrErrors
       channel_close(token_address: String, partner_address: String): ChannelOrErrors
       channel_withdraw(token_address: String, partner_address: String, total_withdraw: Int): ChannelOrErrors

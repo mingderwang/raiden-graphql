@@ -38,8 +38,8 @@ const resolvers = {
     token: (root, { address }) => {
       return new Token(address).create()
     },
-    channel: (root, { token_address, partner_address, settle_timeout, total_deposit }) => {
-      return new Channel(token_address, partner_address, settle_timeout, total_deposit).create()
+    channel: (root, { token_address, partner_address, settle_timeout, total_deposit, reveal_timeout}) => {
+      return new Channel(token_address, partner_address, settle_timeout, total_deposit, reveal_timeout).create()
     },
     channel_deposit: (root, { token_address, partner_address, total_deposit }) => {
       return new ChannelDeposit(token_address, partner_address, total_deposit).create()
