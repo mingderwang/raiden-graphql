@@ -55,11 +55,13 @@ const typeDefs = `
       total_deposit: Int
       state: String!
       partner_address: String!
-      token_address: String!
+      token_network_address: String!
       settle_timeout: Int!
       reveal_timeout: Int!
       channel_identifier: Int!
       balance: Int!
+      token_address: String!
+      total_withdraw: Int!
     }
 
     type Deposit {

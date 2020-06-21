@@ -165,7 +165,52 @@ return:
 ```
 # channels
 
-## GET get channel status
+## get channel status
+```
+{
+  channels {
+    channels {
+      state
+      balance
+      settle_timeout
+      total_deposit
+      channel_identifier
+      partner_address
+      reveal_timeout
+      token_network_address
+      token_address
+      total_withdraw
+    }
+    errors
+  }
+}
+```
+return
+```
+{
+  "data": {
+    "channels": {
+      "channels": [
+        {
+          "state": "closed",
+          "balance": 1000000000,
+          "settle_timeout": 500,
+          "total_deposit": 1000000000,
+          "channel_identifier": 7,
+          "partner_address": "0x9335bC8FCd67Dd60Eba9ebcE5424F5eE2Ee789d2",
+          "reveal_timeout": 50,
+          "token_network_address": "0x951ED8c7635202cEC4128BF00aFb0efDEfAdB941",
+          "token_address": "0x76b335763f779979D7322dB2B73088b8D6001b75",
+          "total_withdraw": 0
+        }
+      ],
+      "errors": null
+    }
+  }
+}
+```
+
+## get a channel status with token_address 
 ```
 {
   channels(token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee") {
@@ -199,48 +244,7 @@ return:
   }
 }
 ```
-or with no token_address
-```
-{
-  channels {
-    channels {
-      state
-      balance
-      settle_timeout
-      token_network_identifier
-      total_deposit
-      token_address
-      channel_identifier
-      partner_address
-      reveal_timeout
-    }
-    errors
-  }
-}
-```
-return:
-```
-{
-  "data": {
-    "channels": {
-      "channels": [
-        {
-          "state": "opened",
-          "balance": 1000,
-          "settle_timeout": 500,
-          "token_network_identifier": "0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355",
-          "total_deposit": 1000,
-          "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
-          "channel_identifier": 5,
-          "partner_address": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-          "reveal_timeout": 50
-        }
-      ],
-      "errors": null
-    }
-  }
-}
-```
+
 or with error
 ```
 {
