@@ -192,15 +192,15 @@ return
     "channels": {
       "channels": [
         {
-          "state": "closed",
-          "balance": 1000000000,
+          "state": "opened",
+          "balance": 1337,
           "settle_timeout": 500,
-          "total_deposit": 1000000000,
+          "total_deposit": 1337,
           "channel_identifier": 7,
           "partner_address": "0x9335bC8FCd67Dd60Eba9ebcE5424F5eE2Ee789d2",
           "reveal_timeout": 50,
-          "token_network_address": "0x951ED8c7635202cEC4128BF00aFb0efDEfAdB941",
-          "token_address": "0x76b335763f779979D7322dB2B73088b8D6001b75",
+          "token_network_address": "0xfb7651Fd399eF4E53409645540d98Bf9A4344f78",
+          "token_address": "0x018F0AC075C93091d036f033Cf45dFe518f11D64",
           "total_withdraw": 0
         }
       ],
@@ -213,13 +213,13 @@ return
 ## get a channel status with token_address 
 ```
 {
-  channels(token_address: "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee") {
+  channels(token_address: "0x018F0AC075C93091d036f033Cf45dFe518f11D64") {
     channels {
       total_deposit
       state
       partner_address
       token_address
-      token_network_identifier
+      token_network_address
     }
     errors
   }
@@ -232,11 +232,11 @@ return:
     "channels": {
       "channels": [
         {
-          "total_deposit": 1000,
+          "total_deposit": 1337,
           "state": "opened",
-          "partner_address": "0x9013a333d3de90a7eF7531746cb8F537632bf96c",
-          "token_address": "0xDb26E84F3C18776FdBD13d5AE4E91eCB5E4978Ee",
-          "token_network_identifier": "0xF2d4b7002c1694D5ca597aD6eD21D8C8959a6355"
+          "partner_address": "0x9335bC8FCd67Dd60Eba9ebcE5424F5eE2Ee789d2",
+          "token_address": "0x018F0AC075C93091d036f033Cf45dFe518f11D64",
+          "token_network_address": "0xfb7651Fd399eF4E53409645540d98Bf9A4344f78"
         }
       ],
       "errors": null

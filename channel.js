@@ -32,7 +32,7 @@ async function createChannel(token_address, partner_address, settle_timeout, tot
 	      result = response.data
             })
             .catch(function (err) {
-              console.error(err.response.data)
+              console.error(err)
 	      if ((typeof err.response.data.errors) === 'string') {
                 result = {
                   errors: [  

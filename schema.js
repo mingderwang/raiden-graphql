@@ -51,7 +51,6 @@ const typeDefs = `
     }
 
     type Channel {
-      token_network_identifier: String!
       total_deposit: Int
       state: String!
       partner_address: String!
