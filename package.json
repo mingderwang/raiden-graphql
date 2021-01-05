@@ -23,7 +23,7 @@
   "dependencies": {
     "minimist": ">=1.2.2",
     "apollo-server-express": "^2.4.8",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "es6-promise": "^4.2.6",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
